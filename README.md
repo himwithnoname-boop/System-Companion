@@ -24,7 +24,7 @@ The installer checks the chip, 16 MB flash capacity, embedded image hashes and w
 
 There are **five native builds, selected by three OS launchers**. Windows 10 and 11 use the same client. Intel macOS is not a target. No Python or development tools are needed to run the released clients or Windows installer. Launchers unpack locally into private temporary folders and clean up when the host exits. Platform permissions and enterprise policies still apply.
 
-## What it does
+## What it does:
 
 - CPU and GPU temperature/load, RAM, storage, network, processes and detected **local** AI engines.
 - Tap the home centre to cycle temperature, CPU load, GPU load, memory, download/upload and stacked CPU/GPU temperatures.
@@ -39,7 +39,7 @@ There are **five native builds, selected by three OS launchers**. Windows 10 and
 
 [User guide](docs/user-guide.md) · [Sensor support](docs/sensors.md) · [Protocol](docs/protocol.md)
 
-## Temperature support, honestly
+## Temperature support:
 
 Unavailable values appear as **--**, not invented zeroes. GPU readings depend on the graphics driver. Linux uses exposed hwmon/thermal/DRM interfaces; macOS uses available AppleSMC/IOAccelerator properties. Windows native GPU access needs no elevation when exposed by the driver.
 
@@ -47,7 +47,7 @@ Unavailable values appear as **--**, not invented zeroes. GPU readings depend on
 
 The preceding Windows x64 release was hardware-tested; the new LCD-ID helper has build/protocol tests and awaits physical confirmation. Older Linux x64 USB/tray operation was tested in Ubuntu; the newest native sensor provider, Linux ARM64, Windows ARM64 and macOS menu/SMC runtime still need target-machine checks. Cross-compilation is not proof of physical compatibility. See [verification boundaries](docs/verification.md).
 
-## Screenshots
+## Screenshots:
 
 <p align="center"><img src="docs/assets/gpu-selection.png" width="300" alt="Actual GPU1-only selection showing a matching 99 percent GPU bar"></p>
 
