@@ -25,7 +25,32 @@ def main():
   shutil.copy2(ROOT/"firmware/build"/source,firmware/name)
  image=json.loads((ROOT/".local/installer-build/payload/image.json").read_text())
  (firmware/"image.json").write_text(json.dumps(image,indent=2),encoding="utf-8")
- shutil.copy2(ROOT/"docs/hardware.md",firmware/"README.md")
+ (firmware/"README.md").write_text("""# System Companion firmware images
+
+For Waveshare ESP32-S3-Touch-AMOLED-1.43-B only: ESP32-S3, 16 MB flash, 8 MB PSRAM.
+
+The recommended installation method is the single SystemCompanion-Installer.exe
+from the matching release. This archive is intended for developers using esptool.
+
+Offsets (also in image.json):
+- 0x000000 bootloader.bin
+- 0x008000 partition-table.bin
+- 0x010000 system_companion.bin
+- 0x300000 storage.bin
+
+Do not write the application at offset zero or erase the full chip to update.
+These regions preserve the NVS settings partition. The external MoniStore SD
+card is separate and is not part of these images. Close Monitor and eject
+MoniStore before flashing. Keep USB connected until verification finishes.
+
+Hardware/build/verification documentation and original source:
+https://github.com/himwithnoname-boop/System-Companion/tree/v1.0.9
+Matching dependency sources: SystemCompanion-ThirdPartySource.zip in the release.
+Original code is MIT; dependencies retain their own terms. Preserve the
+included THIRD_PARTY_NOTICES.md and licenses folder when redistributing.
+""",encoding="utf-8")
+ shutil.copy2(ROOT/"THIRD_PARTY_NOTICES.md",firmware/"THIRD_PARTY_NOTICES.md")
+ shutil.copytree(ROOT/"licenses",firmware/"licenses",dirs_exist_ok=True)
  shutil.copy2(ROOT/"LICENSE",firmware/"LICENSE")
  zip_tree(release/"SystemCompanion-Firmware.zip",firmware)
  zip_tree(release/"SystemCompanion-ThirdPartySource.zip",ROOT/".local/public-sources")
