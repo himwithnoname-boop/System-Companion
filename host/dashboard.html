@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>System Companion</title>
+<style>
+:root{color-scheme:dark;--accent:#00e5ff;--muted:#8394a4}*{box-sizing:border-box}body{margin:0;background:var(--bg,#070b10);color:var(--fg,#eef4fa);font:15px system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:1120px;margin:0 auto;padding:46px 32px}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #1a2632;padding-bottom:24px}h1{font-size:24px;letter-spacing:-.7px;margin:5px 0}.eyebrow{font-size:11px;letter-spacing:2.5px;color:var(--accent);font-weight:700}.status{border:1px solid #284150;padding:10px 16px;border-radius:24px;font-size:12px;color:var(--muted)}.hero{display:grid;grid-template-columns:340px 1fr;gap:52px;align-items:center;padding:36px 0}.watch{width:320px;height:320px;border-radius:50%;background:#000;position:relative;box-shadow:0 0 0 8px #202a33,0 0 0 10px #44515d,0 22px 60px #0007}.ring{position:absolute;border-radius:50%;inset:18px;background:conic-gradient(from 225deg,var(--color) calc(var(--value)*.75%),#172028 0 75%,transparent 0);mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 0)}.r2{inset:36px;--color:#c581ff}.r3{inset:54px;--color:#b9f36b}.center{position:absolute;inset:94px 35px;text-align:center}.center strong{display:block;font-size:48px;font-weight:500;letter-spacing:-3px}.center small{display:block;font-size:10px;letter-spacing:2px;color:var(--accent);margin-top:8px}.legend{position:absolute;bottom:51px;left:0;right:0;text-align:center;font-size:11px;word-spacing:13px}.intro h2{font-size:38px;font-weight:500;letter-spacing:-1.5px;margin:12px 0}.intro p{color:var(--muted);line-height:1.7;max-width:480px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{min-width:0;background:var(--card,#101720);border:1px solid #1e2b38;border-radius:16px;padding:22px}.card small{font-size:11px;letter-spacing:1.5px;color:var(--muted)}.metric{font-size:32px;letter-spacing:-1px;margin:14px 0 6px}.desc{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.controls{margin-top:28px;padding-top:25px;border-top:1px solid #1a2632;display:flex;flex-wrap:wrap;align-items:center;gap:16px}select,button{background:#14212d;color:#ecf3f8;border:1px solid #2b3d4c;border-radius:10px;padding:11px;font:inherit;font-size:13px}button{cursor:pointer}button:hover{border-color:var(--accent)}input{accent-color:var(--accent)}label{color:var(--muted);font-size:13px}.note{font-size:12px;color:var(--muted);margin-top:20px;line-height:1.7}#feedback{min-height:20px;color:var(--accent);font-size:12px}@media(max-width:760px){main{padding:24px 20px}.hero{grid-template-columns:1fr;gap:20px}.watch{margin:auto}.intro h2{font-size:30px}.grid{grid-template-columns:repeat(2,1fr)}header{align-items:start;gap:10px}.status{max-width:180px}}
+.center{background:transparent;border:0;border-radius:18px;color:inherit;padding:0;width:250px;height:132px;cursor:pointer}.center:hover{background:#ffffff08}.center:focus-visible{outline:2px solid var(--accent)}.center.network strong{font-size:26px;line-height:1.3;letter-spacing:-1px}.center .hint{color:var(--muted);font-size:9px;letter-spacing:1px;margin-top:9px}html:has(#theme option[value="3"]:checked){color-scheme:light}button:disabled{opacity:.5;cursor:default}.gpu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:18px}.gpu-card h3{font-size:15px;margin:0 0 16px;overflow-wrap:anywhere}.gpu-metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}.gpu-metrics span{font-size:12px;color:var(--muted)}.gpu-metrics b{display:block;font-size:20px;color:var(--fg,#eef4fa);font-weight:500;margin-top:4px}.gpu-source{white-space:normal;margin-top:16px}.center.multi strong{font-size:19px;line-height:1.25;letter-spacing:0}.center.multi{inset:64px 35px;height:auto;transform:translateY(-12px)}.center.multi small{letter-spacing:.5px;font-size:9px}.gpu-options{margin-top:18px}.gpu-choices{display:grid;gap:12px;margin-top:14px}.gpu-choice{display:flex;align-items:center;gap:10px;overflow-wrap:anywhere}.gpu-choice input{flex:0 0 auto}.gpu-options p{color:var(--muted);font-size:12px;line-height:1.6}</style>
+<main><header><div><div class="eyebrow">YOUR COMPUTER. AT A GLANCE.</div><h1>System Companion</h1></div><div id="status" class="status">Connecting to agent…</div></header>
+<div class="hero"><div class="watch"><div class="ring" id="cpuRing" style="--color:#00e5ff;--value:0"></div><div class="ring r2" id="gpuRing" style="--value:0"></div><div class="ring r3" id="ramRing" style="--value:0"></div><button class="center" id="centre" aria-label="Cycle overview metric"><strong id="temperature">--°</strong><small id="health">WAITING FOR TELEMETRY</small><small class="hint">TAP TO CHANGE</small></button><div class="legend"><span style="color:#00e5ff">CPU</span> <span style="color:#c581ff">GPU</span> <span style="color:#b9f36b">RAM</span></div></div><div class="intro"><div class="eyebrow">LIVE SYSTEM VIEW</div><h2 id="hostname">A little more awareness.</h2><p>Real telemetry, delivered to your AMOLED display over USB. Swipe across the device for details, or adjust its appearance here.</p><p id="connectionHelp">Plug in your System Companion to connect automatically.</p></div></div>
+<div class="grid"><div class="card"><small>PROCESSOR</small><div class="metric" id="cpu">--%</div><div class="desc" id="cpuName">Awaiting sensors</div></div><div class="card"><small>GRAPHICS</small><div class="metric" id="gpu">--%</div><div class="desc" id="gpuName">Awaiting sensors</div></div><div class="card"><small>MEMORY</small><div class="metric" id="ram">-- GB</div><div class="desc" id="ramTotal">-- total</div></div><div class="card"><small>DOWNLOAD / UPLOAD</small><div class="metric" id="network">-- / --</div><div class="desc">Mbps · actual network traffic</div></div><div class="card"><small>STORAGE</small><div class="metric" id="storage">--%</div><div class="desc" id="drive">Awaiting drives</div></div><div class="card"><small>LOCAL AI</small><div class="metric" id="ai">Idle</div><div class="desc" id="model">No model reported</div></div></div>
+<section class="gpu-grid" id="gpuDetails" aria-label="Graphics adapters"></section><section class="card gpu-options" id="gpuDisplayOptions" hidden><h3>GPUs shown on display</h3><p>Choose which GPUs appear in the detail pages. Your choices are saved on the device for this computer. The activity bar averages enabled GPUs that report load.</p><div class="gpu-choices" id="gpuChoices"></div></section><div class="controls"><label>Theme <select id="theme"><option value="0">AMOLED Dark</option><option value="1">NVIDIA</option><option value="2">Cyberpunk</option><option value="3">Light</option><option value="4">Matrix</option></select></label><label>Brightness <input id="brightness" type="range" min="20" max="255" value="170"></label><label><input id="fahrenheit" type="checkbox"> Fahrenheit</label><label>Page <select id="page"><option value="0">Overview</option><option value="1">CPU</option><option value="2">GPU</option><option value="3">Memory</option><option value="4">Storage</option><option value="5">Network</option><option value="6">Processes</option><option value="7">AI</option><option value="8">Settings</option></select></label><label><input id="autoRotate" type="checkbox" checked> Auto rotate</label><button id="apply">Apply to display</button></div><p id="feedback" role="status"></p><p class="note">Unavailable sensors display “--”. NVIDIA telemetry uses your existing driver. GPU activity is the average of enabled GPUs reporting utilization; disabled GPUs and missing readings are excluded. Each visible GPU summary shows its own temperature, load, memory and power. CPU temperature availability depends on the operating system and hardware. On Windows, an existing LibreHardwareMonitor WMI source or the optional sensor helper can supply readings. Local AI detection supports Maestro, llama.cpp, Ollama, LM Studio, KoboldCPP, vLLM, SGLang, TGI and MLX LM. Active means a local job or inference request was reported. Loaded means a resident model with unavailable activity data. Engine running means a recognized worker with unavailable API telemetry. No source means detection could not establish a local AI source. CPU and RAM refer to the selected worker; token rates and KV cache require engine telemetry. Monitor installs no drivers. Standard-user sensors are read automatically. Generic thermal zones are labelled separately from CPU die temperatures. On Windows, the optional CPU sensor helper asks for approval once and remembers access on this PC. Later launches read silently; turning the option off stops the reader. A compatible existing sensor driver is required.</p></main>
+<script>
+const token=location.hash.slice(1);history.replaceState(null,'',location.pathname);
+const el=id=>document.getElementById(id),valid=v=>typeof v==='number'&&Number.isFinite(v),fmt=(v,s='',p=0)=>valid(v)?v.toFixed(p)+s:'--'+s;
+let gpuHidden=new Set(),gpuDirty=false,gpuSelectionSupported=false,gpuChoicesSignature='';
+let latest={},centreMode=0,pollTimer,pollRequest,stopped=false,retryDelay=1000,lastPaint='',preferencesKnown=false;
+const preferenceFields={theme:['theme',false],brightness:['brightness',false],fahrenheit:['fahrenheit',true],page:['page',false],autoRotate:['auto_rotate',true]},dirtyPreferences=new Set();
+for(const id of Object.keys(preferenceFields))el(id).addEventListener('input',()=>dirtyPreferences.add(id));
+function syncPreferences(s){preferencesKnown=!!s;el('apply').disabled=!s;el('centre').disabled=!s;if(!s)return;
+ for(const [id,[field,bool]] of Object.entries(preferenceFields))if(!dirtyPreferences.has(id))el(id)[bool?'checked':'value']=s[field];
+ if(Number.isInteger(s.center_mode))centreMode=s.center_mode;
+ gpuSelectionSupported=!!s.gpu_selection;if(!gpuDirty)gpuHidden=new Set(s.gpu_hidden||[]);
+ const themes=[['#00e5ff','#070b10','#eef4fa','#101720','#14202c','#8394a4'],['#76b900','#070b10','#eef4fa','#101720','#14202c','#8394a4'],['#ff41ce','#070b10','#eef4fa','#101720','#14202c','#8394a4'],['#087fa0','#f5f6f8','#111820','#ffffff','#e5e9f0','#526574'],['#00ff80','#020d06','#d8ffe5','#09190f','#102719','#75aa88']];
+ const colors=themes[s.theme]||themes[0];for(const [i,key] of ['--accent','--bg','--fg','--card','--input','--muted'].entries())document.documentElement.style.setProperty(key,colors[i]);
+}
+syncPreferences(null);
+async function post(endpoint,body){const r=await fetch('/api/'+endpoint,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw Error(await r.text());}
+function detectedGPUs(t){return Array.isArray(t.gpus)?t.gpus:[];}
+function gpuReadings(t){return detectedGPUs(t).filter(g=>!gpuHidden.has(g.display_key));}
+function gpuActivity(t){
+ if(!Array.isArray(t.gpus))return {load:t.gpu_load,selected:t.gpu_count||0,reporting:t.gpu_load_available||0};
+ const rows=gpuReadings(t),loads=rows.map(g=>g.load).filter(valid);
+ return {load:loads.length?loads.reduce((a,b)=>a+b,0)/loads.length:null,selected:rows.length,reporting:loads.length};
+}
+function paintGPUActivity(t){
+ const a=gpuActivity(t);el('gpu').textContent=fmt(a.load,'%');
+ el('gpuName').textContent=Array.isArray(t.gpus)?(a.selected+' / '+t.gpus.length+' GPUs enabled · '+a.reporting+' reporting load'):(t.gpu_name||'No supported GPU sensor');
+ el('gpuRing').title='Average activity across enabled GPUs with available load readings';
+ el('gpuRing').style.setProperty('--value',Math.max(0,Math.min(100,a.load||0)));
+}
+function gpuIndex(g,i){return Number.isInteger(g.index)?g.index:i;}
+function gpuChoiceSignature(){return JSON.stringify([gpuSelectionSupported,detectedGPUs(latest).map((g,i)=>[g.display_key,gpuIndex(g,i),g.name,!gpuHidden.has(g.display_key)])]);}
+function paintGPUChoices(){
+ const panel=el('gpuDisplayOptions');panel.hidden=!preferencesKnown||!gpuSelectionSupported;
+ const signature=gpuChoiceSignature();if(signature===gpuChoicesSignature)return;gpuChoicesSignature=signature;
+ const root=el('gpuChoices');root.replaceChildren();
+ detectedGPUs(latest).forEach((g,i)=>{
+  const key=g.display_key;if(!key)return;
+  const label=document.createElement('label');label.className='gpu-choice';
+  const box=document.createElement('input');box.type='checkbox';box.checked=!gpuHidden.has(key);box.dataset.gpuKey=key;
+  box.onchange=()=>{
+   if(box.checked)gpuHidden.delete(key);else gpuHidden.add(key);
+   if(gpuHidden.size>16){gpuHidden.delete(key);box.checked=true;el('feedback').textContent='Up to 16 GPUs can be hidden for this computer.';return;}
+   gpuDirty=true;gpuChoicesSignature=gpuChoiceSignature();paintGPUDetails(latest);paintGPUActivity(latest);paintCentre();el('feedback').textContent='Preview updated. Apply to display to save your GPU selection.';
+  };
+  label.append(box,document.createTextNode('GPU'+gpuIndex(g,i)+' · '+(g.name||'Graphics adapter')));root.append(label);
+ });
+}
+function paintGPUDetails(t){
+ const root=el('gpuDetails'),rows=gpuReadings(t),f=el('fahrenheit').checked,unit=f?'°F':'°C';
+ root.replaceChildren();
+ rows.forEach((g,i)=>{
+  const card=document.createElement('article');card.className='card gpu-card';card.dataset.gpuId=g.id||String(i);
+  const title=document.createElement('h3');title.textContent='GPU'+gpuIndex(g,i)+' · '+(g.name||'Graphics adapter');card.append(title);
+  const grid=document.createElement('div');grid.className='gpu-metrics';
+  const temp=valid(g.temp)&&f?g.temp*1.8+32:g.temp,hot=valid(g.hotspot)&&f?g.hotspot*1.8+32:g.hotspot;
+  for(const pair of [['Temperature',fmt(temp,unit)],['Load',fmt(g.load,'%')],['Memory',fmt(g.vram,'',1)+' / '+fmt(g.vram_total,' GB',1)],['Power',fmt(g.power,' W',1)]]){
+   const item=document.createElement('span');item.textContent=pair[0];const value=document.createElement('b');value.textContent=pair[1];item.append(value);grid.append(item);
+  }
+  card.append(grid);const note=document.createElement('div');note.className='desc gpu-source';note.textContent=!valid(g.temp)?'Temperature unavailable':'';card.append(note);root.append(card);
+ });
+}
+function paintCentre(){const t=latest;let text,caption;
+ if(centreMode===0){const reported=gpuReadings(t).map(g=>g.temp).filter(valid),temp=t.cpu_temp??(Array.isArray(t.gpus)?(reported.length?Math.max(...reported):undefined):t.gpu_temp),f=el('fahrenheit').checked;text=fmt(valid(temp)&&f?temp*1.8+32:temp,f?'°F':'°C');caption=valid(t.cpu_temp)?'CPU TEMPERATURE':valid(temp)?'GPU TEMPERATURE':'TEMPERATURE UNAVAILABLE';}
+ if(centreMode===1){text=fmt(t.cpu_load,'%');caption='PROCESSOR LOAD';}
+ if(centreMode===2){text=fmt(gpuActivity(t).load,'%');caption='GRAPHICS LOAD';}
+ if(centreMode===3){text=fmt(t.ram_total>0?100*t.ram_used/t.ram_total:null,'%');caption='MEMORY USAGE';}
+ if(centreMode===4){text='↓ '+fmt(t.net_down,'',1)+'\n↑ '+fmt(t.net_up,'',1);caption='DOWNLOAD / UPLOAD · Mbps';}
+ if(centreMode===5){const f=el('fahrenheit').checked,unit=f?'°F':'°C';text='CPU '+fmt(valid(t.cpu_temp)&&f?t.cpu_temp*1.8+32:t.cpu_temp,unit)+'\nGPU '+fmt(valid(t.gpu_temp)&&f?t.gpu_temp*1.8+32:t.gpu_temp,unit);caption='CPU / GPU TEMPERATURES';}
+ const rows=gpuReadings(t),multi=rows.length>1&&(centreMode===2||centreMode===5);el('centre').classList.toggle('multi',multi);
+ if(multi){const f=el('fahrenheit').checked,unit=f?'°F':'°C',lines=centreMode===5?['CPU '+fmt(valid(t.cpu_temp)&&f?t.cpu_temp*1.8+32:t.cpu_temp,unit)]:[];
+ rows.slice(0,4).forEach((g,i)=>lines.push('GPU'+gpuIndex(g,i)+' '+(centreMode===2?fmt(g.load,'%'):fmt(valid(g.temp)&&f?g.temp*1.8+32:g.temp,unit))));
+ if(rows.length>4)lines.push('+'+(rows.length-4)+' below');text=lines.join('\n');}
+ if(rows.length===1&&(centreMode===2||centreMode===5)){
+  const g=rows[0],i=detectedGPUs(t).indexOf(g),f=el('fahrenheit').checked,unit=f?'°F':'°C';
+  text=centreMode===2?'GPU'+gpuIndex(g,i)+' '+fmt(g.load,'%'):'CPU '+fmt(valid(t.cpu_temp)&&f?t.cpu_temp*1.8+32:t.cpu_temp,unit)+'\nGPU'+gpuIndex(g,i)+' '+fmt(valid(g.temp)&&f?g.temp*1.8+32:g.temp,unit);
+ }
+ if(!rows.length&&detectedGPUs(t).length){if(centreMode===2)caption='NO GPUS SELECTED';if(centreMode===5){const f=el('fahrenheit').checked;text='CPU '+fmt(valid(t.cpu_temp)&&f?t.cpu_temp*1.8+32:t.cpu_temp,f?'°F':'°C');caption='CPU TEMPERATURE';}}
+ if(centreMode===0&&!valid(t.cpu_temp)&&valid(t.thermal_temp)){const f=el('fahrenheit').checked;text=fmt(f?t.thermal_temp*1.8+32:t.thermal_temp,f?'°F':'°C');caption='SYSTEM THERMAL ZONE';}
+ el('temperature').textContent=text;el('temperature').style.whiteSpace='pre-line';el('health').textContent=caption;el('centre').classList.toggle('network',centreMode>=4);
+}
+el('centre').onclick=()=>{if(!preferencesKnown)return;centreMode=(centreMode+1)%6;paintCentre();post('settings',{center_mode:centreMode}).catch(e=>{el('feedback').textContent=e.message;});};
+function paint(s){const t=s.telemetry||{};latest=t;syncPreferences(s.settings);el('status').textContent=s.port?'USB connected · '+s.port:s.error||'Waiting for device';el('status').style.color=s.port?'#00e5ff':'#8394a4';el('hostname').textContent=t.host_name||'A little more awareness.';el('connectionHelp').textContent=s.port?'Your display is receiving live telemetry. Tap the centre to change its metric.':'Launch this agent with the device connected to USB.';
+ el('cpu').textContent=fmt(t.cpu_load,'%');el('gpu').textContent=fmt(t.gpu_load,'%');el('ram').textContent=fmt(t.ram_used,' GB',1);el('ramTotal').textContent=fmt(t.ram_total,' GB total',1);el('cpuName').textContent=valid(t.cpu_temp)?'CPU '+fmt(t.cpu_temp,'°C')+' · '+(t.cpu_name||''):t.sensor_status||t.cpu_name||'CPU temperature unavailable';el('cpuName').title=[el('cpuName').textContent,t.cpu_temp_source].filter(Boolean).join(' · ');paintGPUActivity(t);el('network').textContent=fmt(t.net_down,'',1)+' / '+fmt(t.net_up,'',1);
+ for(const [id,v] of [['cpuRing',t.cpu_load],['ramRing',t.ram_total?100*t.ram_used/t.ram_total:0]])el(id).style.setProperty('--value',Math.max(0,Math.min(100,v||0)));
+ const d=(t.drives||[])[0];el('storage').textContent=d?fmt(d.used/d.total*100,'%'):'--%';el('drive').textContent=d?d.name:'No drive data';el('ai').textContent=({ACTIVE:'Active',QUEUED:'Queued',LOADED:'Loaded',WORKER:'Engine running',IDLE:'Idle','NO SOURCE':'No source'})[t.ai_state]||'Checking';el('model').textContent=[t.ai_provider,t.ai_model,t.ai_note,valid(t.ai_cpu)?'CPU '+fmt(t.ai_cpu,'%',1):'',valid(t.ai_ram)?'RAM '+fmt(t.ai_ram,' GB',1):'',valid(t.ai_tps)?fmt(t.ai_tps,' tokens/s',1):''].filter(Boolean).join(' · ')||'Checking local AI engines';paintGPUChoices();paintGPUDetails(t);paintCentre();}
+function stopPolling(){stopped=true;clearTimeout(pollTimer);pollRequest?.abort();}
+async function poll(){
+ if(stopped||document.hidden||pollRequest)return;
+ if(!token){el('status').textContent='Open the dashboard from Monitor again.';stopPolling();return;}
+ const request=new AbortController();pollRequest=request;const timeout=setTimeout(()=>request.abort(),5000);
+ try{const r=await fetch('/api/status',{headers:{Authorization:'Bearer '+token},cache:'no-store',signal:request.signal});if(!r.ok){if(r.status===401)stopPolling();throw Error(r.status===401?'Open the dashboard from Monitor again.':'Agent unavailable');}
+ syncSensors();const s=await r.json(),key=[s.telemetry?.seq,s.port,s.error,JSON.stringify(s.settings)].join('|');if(key!==lastPaint){paint(s);lastPaint=key;}retryDelay=1000;
+ }catch(e){if(!document.hidden&&!stopped){el('status').textContent=e.name==='AbortError'?'Agent unavailable':e.message;retryDelay=Math.min(retryDelay*2,30000);}}
+ finally{clearTimeout(timeout);pollRequest=null;if(!stopped&&!document.hidden)pollTimer=setTimeout(poll,retryDelay);}
+}
+document.addEventListener('visibilitychange',()=>{clearTimeout(pollTimer);if(document.hidden)pollRequest?.abort();else if(!stopped){retryDelay=1000;poll();}});
+window.addEventListener('pagehide',()=>{clearTimeout(pollTimer);pollRequest?.abort();});
+window.addEventListener('pageshow',()=>{if(!stopped&&!document.hidden)poll();});
+el('apply').onclick=async()=>{if(!preferencesKnown)return;const changes={};for(const id of dirtyPreferences){const [field,bool]=preferenceFields[id];changes[field]=bool?el(id).checked:+el(id).value;}if(gpuDirty)changes.gpu_hidden=[...gpuHidden].sort();if(!Object.keys(changes).length){el('feedback').textContent='Device preferences are already loaded.';return;}el('feedback').textContent='Applying…';try{await post('settings',changes);dirtyPreferences.clear();gpuDirty=false;paintCentre();lastPaint='';el('feedback').textContent='Display preferences sent to the device.';}catch(e){el('feedback').textContent=e.message;}};
+for(const [label,endpoint] of [['Reconnect display','reconnect'],['Exit monitor','exit']]){const button=document.createElement('button');button.textContent=label;document.querySelector('.controls').append(button);button.onclick=async()=>{try{await post(endpoint);if(endpoint==='exit')stopPolling();el('feedback').textContent=endpoint==='exit'?'Monitor stopped.':endpoint==='reconnect'?'Reconnecting display…':'Sensor access requested. Approve the Windows prompt to enable CPU readings.';}catch(e){el('feedback').textContent=e.message;}};}
+let sensorBox,sensorBusy=false,sensorKnownPending=false;
+async function syncSensors(){
+ if(!token||stopped||document.hidden||sensorBusy)return;
+ try{
+  const response=await fetch('/api/sensor-access',{headers:{Authorization:'Bearer '+token},cache:'no-store'});if(!response.ok)return;
+  const state=await response.json();if(!state.available)return;
+  if(!sensorBox){const label=document.createElement('label');sensorBox=document.createElement('input');sensorBox.type='checkbox';sensorBox.id='cpuTemperatures';label.append(sensorBox,document.createTextNode(' CPU temperatures'));label.title='Remembers approved CPU sensor access on this PC.';document.querySelector('.controls').append(label);
+   sensorBox.onchange=async()=>{sensorBusy=true;sensorBox.disabled=true;const enabled=sensorBox.checked;try{await post('sensor-access',{enabled});el('feedback').textContent=enabled?'CPU sensor access requested. Windows approval is remembered on this PC.':'CPU temperatures disabled.';}catch(e){el('feedback').textContent=e.message;}finally{sensorBusy=false;await syncSensors();}};
+  }
+  sensorBox.checked=state.enabled;sensorBox.disabled=state.pending;
+  if(state.pending||sensorKnownPending){el('feedback').textContent=state.status||(state.enabled?'CPU sensor access enabled and saved on this PC.':'CPU temperatures are off.');}
+  sensorKnownPending=state.pending;
+ }catch{}
+}
+syncSensors();
+
+poll();
+</script></html>

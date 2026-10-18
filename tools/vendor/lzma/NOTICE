@@ -1,0 +1,4 @@
+LZMA SDK 26.03, Igor Pavlov, public domain.
+Source: https://www.7-zip.org/sdk.html
+Archive: https://github.com/ip7z/7zip/releases/download/26.03/lzma2603.7z
+Only original C decoder files and headers are included. Portable Linux wrapper: ../../portable-xz.c.

@@ -1,0 +1,12 @@
+{
+  "libreHardwareMonitor": {
+    "version": "0.9.6",
+    "url": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v0.9.6/LibreHardwareMonitor.zip",
+    "sha256": "086d9f1b5a99e643edc2cfaaac16051685b551e4c5ac0b32a57c58c0e529c001"
+  },
+  "lzmaSdk": {
+    "version": "26.03",
+    "url": "https://github.com/ip7z/7zip/releases/download/26.03/lzma2603.7z",
+    "sha256": "86c213f752520ab5325c310f50bef63ec344b56dd1c80b0246d06dc6cec953b2"
+  }
+}

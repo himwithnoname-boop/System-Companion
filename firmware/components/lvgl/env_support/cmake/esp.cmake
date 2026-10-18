@@ -1,0 +1,2 @@
+file(GLOB_RECURSE LVGL_SOURCES ${LVGL_ROOT_DIR}/src/*.c)
+idf_component_register(SRCS ${LVGL_SOURCES} INCLUDE_DIRS ${LVGL_ROOT_DIR} REQUIRES esp_timer)
